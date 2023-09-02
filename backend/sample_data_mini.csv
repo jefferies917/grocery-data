@@ -1,0 +1,11 @@
+﻿Date,Retailer,EAN,Category,Manufacturer,Brand,Product Title,Image,On Promotion,Promotion Description,Base Price,Shelf Price,Promoted Price
+
+2022-02-01,Sainsburys,277907,Green Tea,Sainsbury's Supermarkets Ltd,Sainsbury's,Sainsbury's Green Tea x20 Tea Bags 38g,https://s3.eu-central-1.amazonaws.com/bn.production.core-images/0000000277907,FALSE,,0.75,0.75,0.75
+
+2022-02-01,Sainsburys,70177225865,Fruit & Herbal Tea,R Twinings & Co Ltd,Twinings,Twinings Digest Superblends Tea Bags 35g,https://s3.eu-central-1.amazonaws.com/bn.production.core-images/0070177225865,TRUE,Half Price:  Was £2.70 Now £1.35,2.7,1.35,1.35
+
+2022-02-01,Sainsburys,7613036069724,Instant Coffee,Nestlé,NESCAFÉ,Nescafe Alta Rica 100g,https://s3.eu-central-1.amazonaws.com/bn.production.core-images/380350011,FALSE,,4.5,4.5,4.5
+
+2022-02-01,Sainsburys,8712100712029,Black Tea,Unilever,PG Tips,PG Tips 40s Pyramid Teabags 116g,https://s3.eu-central-1.amazonaws.com/bn.production.core-images/8712100712029,FALSE,,1.35,1.35,1.35
+
+2022-02-01,Sainsburys,5010357112092,Black Tea,Taylors of Harrogate,Yorkshire Tea,Yorkshire Tea 240 Tea Bags 750g,https://s3.eu-central-1.amazonaws.com/bn.production.core-images/5010357112092,FALSE,,5.75,5.75,5.75
