@@ -9,18 +9,14 @@ class React(models.Model):
 class Product(models.Model):
     ean = models.PositiveBigIntegerField(unique=True)
     category = models.CharField(max_length=64)
-    manufacturer = models.CharField(max_length=64)  # TODO add choice fields to category, manufactuer, brand
+    manufacturer = models.CharField(max_length=64) 
     brand = models.CharField(max_length=64)
     product_title = models.CharField(max_length=64)
     image = models.URLField(max_length=1024)
 
 
 class Retailer(models.Model):
-    name = models.CharField(max_length=64)
-
-
-class Promotion(models.Model):
-    description = models.CharField(max_length=64)
+    name = models.CharField(max_length=64, unique=True)
 
 
 class Price(models.Model):
@@ -36,3 +32,11 @@ class ProductRetailer(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     retailer = models.ForeignKey(Retailer, on_delete=models.CASCADE)
     on_promotion = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ['product', 'retailer']
+
+
+class Promotion(models.Model):
+    description = models.CharField(max_length=64)
+    product_retailer = models.ForeignKey(ProductRetailer, on_delete=models.CASCADE, related_name='promotion')
