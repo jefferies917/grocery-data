@@ -19,6 +19,7 @@ class ReactView(generics.ListCreateAPIView):
 
 
 class ProductViewSet(viewsets.ModelViewSet):
+    # TODO paginate
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
