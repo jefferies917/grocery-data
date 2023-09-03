@@ -9,6 +9,7 @@ import codecs
 from django.core.files.base import ContentFile
 from django.core.files.storage import FileSystemStorage
 from django.db import IntegrityError
+from rest_framework.pagination import PageNumberPagination
 
 fs = FileSystemStorage(location='tmp/')
 
@@ -18,16 +19,23 @@ class ReactView(generics.ListCreateAPIView):
     serializer_class = ReactSerializer
 
 
+class Pagination(PageNumberPagination):
+    page_size = 100
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
+
+
 class ProductViewSet(viewsets.ModelViewSet):
-    # TODO paginate
     # TODO this is probably named badly since it parses everything now
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    pagination_class = Pagination
 
     @action(detail=False, methods=['POST'])
     def upload_data(self, request):
         # TODO speed up this method using bulk_create, and swap out saving the file for using a serializer (already started doing this in the newer method)
         # TODO make this method more DRY, its pretty messy atm
+        # TODO fix accent characters not outputting correctly
         file = request.FILES["file"]
 
         content = file.read()
