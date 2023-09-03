@@ -1,4 +1,6 @@
 from django.test import TestCase
+from django.urls import reverse
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 class TestDataIntegrity(TestCase):
@@ -46,6 +48,16 @@ class TestRelationships(TestCase):
 class TestFunctionality(TestCase):
     def setUp(self) -> None:
         return super().setUp()
+    
+    def test_file_upload(self):
+        """ Ensure file upload endpoint can handle a file with a POST request """
+        file = SimpleUploadedFile("file.csv", b"file_content", content_type="text/csv")
+        response = self.client.post(reverse('product-upload-data'), {'file': file})
+        assert response.status_code == 200
+
+    def test_file_upload_correct(self):
+        """ Validate file will only complete upload with correct data """
+        pass
     
     def test_crud_operations(self):
         """ Test CRUD operations for each model to ensure we can manipulate records as expected """
