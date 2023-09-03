@@ -19,7 +19,7 @@ class App extends React.Component {
     let data;
     axios.get('http://localhost:8000/products/')
       .then(res => {
-        data = res.data;
+        data = res.data['results'];
         this.setState({
           details: data
         });
