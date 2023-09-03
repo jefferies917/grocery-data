@@ -34,8 +34,8 @@ class ProductViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['POST'])
     def upload_data(self, request):
         # TODO speed up this method using bulk_create, and swap out saving the file for using a serializer (already started doing this in the newer method)
+        # TODO make this method more DRY, its pretty messy atm
         # TODO fix accent characters not outputting correctly
-        
         file = request.FILES["file"]
 
         content = file.read()
