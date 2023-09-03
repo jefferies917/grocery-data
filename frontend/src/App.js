@@ -46,6 +46,7 @@ class App extends React.Component {
           <TableBody>
 
             {this.state.details.map((output, id) => (
+              // TODO add pagination, currently only displaying first page
               <TableRow>
                 <TableCell className="font-medium">{output.ean}</TableCell>
                 <TableCell>{output.product_title}</TableCell>
