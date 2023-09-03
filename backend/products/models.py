@@ -14,9 +14,15 @@ class Product(models.Model):
     product_title = models.CharField(max_length=64)
     image = models.URLField(max_length=1024)
 
+    def __str__(self):
+        return self.product_title
+
 
 class Retailer(models.Model):
     name = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Price(models.Model):
@@ -27,6 +33,9 @@ class Price(models.Model):
     shelf_price = models.FloatField()
     promoted_price = models.FloatField()
 
+    def __str__(self):
+        return f"{self.product}, {self.retailer} - {self.base_price}"
+
 
 class ProductRetailer(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -36,7 +45,13 @@ class ProductRetailer(models.Model):
     class Meta:
         unique_together = ['product', 'retailer']
 
+    def __str__(self):
+        return f"{self.product}, {self.retailer}"
+
 
 class Promotion(models.Model):
     description = models.CharField(max_length=64)
     product_retailer = models.ForeignKey(ProductRetailer, on_delete=models.CASCADE, related_name='promotion')
+
+    def __str__(self):
+        return self.description

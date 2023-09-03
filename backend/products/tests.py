@@ -1,11 +1,62 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
+from .models import *
+
+
+class TestModelStrings(TestCase):
+    """ Testing the __str__() methods on our models """
+
+    @classmethod
+    def setUpTestData(self):
+        self.product = Product.objects.create(
+            ean=277907,
+            category='Green Tea',
+            manufacturer="Sainsbury's Supermarkets Ltd",
+            brand="Sainsbury's",
+            product_title="Sainsbury's Green Tea x20 Tea Bags 38g",
+            image="https://s3.eu-central-1.amazonaws.com/bn.production.core-images/0000000277907,FALSE,,0.75,0.75,0.75"
+        )
+        self.retailer = Retailer.objects.create(
+            name="Sainsbury's"
+        )
+        self.product_retailer = ProductRetailer.objects.create(
+            product=self.product,
+            retailer=self.retailer,
+            on_promotion=False,
+        )
+        self.price = Price.objects.create(
+            product=self.product,
+            retailer=self.retailer,
+            date="2022-02-01",
+            base_price=0.75,
+            shelf_price=0.75,
+            promoted_price=0.75,
+        )
+        self.promotion = Promotion.objects.create(
+            description='',
+            product_retailer=self.product_retailer,
+        )
+
+    def test_product_model_str(self):
+        self.assertEqual(str(self.product), "Sainsbury's Green Tea x20 Tea Bags 38g")
+
+    def test_retailer_model_str(self):
+        self.assertEqual(str(self.retailer), "Sainsbury's")
+
+    def test_price_model_str(self):
+        self.assertEqual(str(self.price), "Sainsbury's Green Tea x20 Tea Bags 38g, Sainsbury's - 0.75")
+
+    def test_product_retailer_model_str(self):
+        self.assertEqual(str(self.product_retailer), "Sainsbury's Green Tea x20 Tea Bags 38g, Sainsbury's")
+
+    def test_promotion_model_str(self):
+        self.assertEqual(str(self.promotion), "")
 
 
 class TestDataIntegrity(TestCase):
-    def setUp(self) -> None:
-        return super().setUp()
+    def setUp(self):
+        pass
     
     def test_fields_not_null(self):
         """ Test that required field (EAN, Retailer Name, Product Title) cannot be NULL """
@@ -29,8 +80,8 @@ class TestDataIntegrity(TestCase):
 
 
 class TestRelationships(TestCase):
-    def setUp(self) -> None:
-        return super().setUp()
+    def setUp(self):
+        pass
     
     def test_products_associated_retailer(self):
         """ Verify that products are associated with the correct retailers in 'ProductRetailer' model """
@@ -46,8 +97,8 @@ class TestRelationships(TestCase):
 
 
 class TestFunctionality(TestCase):
-    def setUp(self) -> None:
-        return super().setUp()
+    def setUp(self):
+        pass
     
     def test_file_upload(self):
         """ Ensure file upload endpoint can handle a file with a POST request """
@@ -77,8 +128,8 @@ class TestFunctionality(TestCase):
 
 
 class TestPerformance(TestCase):
-    def setUp(self) -> None:
-        return super().setUp()
+    def setUp(self):
+        pass
     
     def test_query_performance(self):
         """ Measure performance of common queries and their response times """
