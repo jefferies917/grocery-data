@@ -34,7 +34,6 @@ class App extends React.Component {
           <title>Product display</title>
           <link href="./styles/global.css" rel="stylesheet"/>
         </Helmet>
-        <h1>A list of your products</h1>
         <Table>
           <TableHeader>
             <TableRow>
