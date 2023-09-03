@@ -19,11 +19,13 @@ class ReactView(generics.ListCreateAPIView):
 
 
 class ProductViewSet(viewsets.ModelViewSet):
+    # TODO this is probably named badly since it parses everything now
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
     @action(detail=False, methods=['POST'])
     def upload_data(self, request):
+        # TODO speed up this method using bulk_create, and swap out saving the file for using a serializer (already started doing this in the newer method)
         
         file = request.FILES["file"]
 
@@ -41,6 +43,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 
         for id_, row in enumerate(reader):
             if not(row):
+                # ignores blank rows
                 continue
             (
                 date,
@@ -100,7 +103,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=['POST'])
     def upload_data_with_validation(self, request):
-        # There is already validation built into the models but we could be extra sure and display that error back to the user instead of causing a server error
+        # TODO There is already validation built into the models but we could be extra sure and display that error back to the user instead of causing a server error
         file = request.FILES.get("file")
 
         reader = csv.DictReader(codecs.iterdecode(file, 'utf-8-sig'), delimiter=",")
